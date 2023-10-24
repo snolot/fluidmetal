@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fluid-metal-gl</title>
+	<style type="text/css">
+				
+
+		@import url("https://p.typekit.net/p.css?s=1&k=ldt4auk&ht=tk&f=10884.31394.31400.31416.31419&a=1494256&app=typekit&e=css");
+
+		@font-face {
+		font-family:"futura-pt";
+		src:url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+		font-display:auto;font-style:normal;font-weight:400;
+		}
+
+		@font-face {
+		font-family:"titling-gothic-fb-extended";
+		src:url("https://use.typekit.net/af/98f5a0/00000000000000003b9ae8f1/27/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n2&v=3") format("woff2"),url("https://use.typekit.net/af/98f5a0/00000000000000003b9ae8f1/27/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n2&v=3") format("woff"),url("https://use.typekit.net/af/98f5a0/00000000000000003b9ae8f1/27/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n2&v=3") format("opentype");
+		font-display:auto;font-style:normal;font-weight:200;
+		}
+
+		@font-face {
+		font-family:"titling-gothic-fb-narrow";
+		src:url("https://use.typekit.net/af/69e92a/00000000000000003b9ae8f7/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3") format("woff2"),url("https://use.typekit.net/af/69e92a/00000000000000003b9ae8f7/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3") format("woff"),url("https://use.typekit.net/af/69e92a/00000000000000003b9ae8f7/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3") format("opentype");
+		font-display:auto;font-style:normal;font-weight:100;
+		}
+
+		@font-face {
+		font-family:"titling-gothic-fb-wide";
+		src:url("https://use.typekit.net/af/e67e40/00000000000000003b9ae907/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff2"),url("https://use.typekit.net/af/e67e40/00000000000000003b9ae907/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff"),url("https://use.typekit.net/af/e67e40/00000000000000003b9ae907/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("opentype");
+		font-display:auto;font-style:normal;font-weight:300;
+		}
+
+		@font-face {
+		font-family:"titling-gothic-fb-wide";
+		src:url("https://use.typekit.net/af/13e7c0/00000000000000003b9ae90a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/13e7c0/00000000000000003b9ae90a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/13e7c0/00000000000000003b9ae90a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+		font-display:auto;font-style:normal;font-weight:700;
+		}
+
+		.tk-futura-pt { font-family: "futura-pt",sans-serif; }
+		.tk-titling-gothic-fb-extended { font-family: "titling-gothic-fb-extended",sans-serif; }
+		.tk-titling-gothic-fb-narrow { font-family: "titling-gothic-fb-narrow",sans-serif; }
+		.tk-titling-gothic-fb-wide { font-family: "titling-gothic-fb-wide",sans-serif; }
+
+			body {
+				
+				color: #151616;
+				background-color: var(--color-bg);
+				font-family: Futura, "futura-pt", Arial, sans-serif;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				margin: 0px;
+			}
+
+			.title {
+				font-family: titling-gothic-fb-extended, sans-serif;
+				font-size: 4vw;
+				text-transform: uppercase;
+				position:absolute;
+				color:#6b644e;
+				left:10px;
+				top:25px;
+				width:100px;
+				height:60px;
+			}
+
+			.subtitle {
+				padding: 0;
+				margin: 0;
+				background: none;
+				border: 0;
+				font-size: 1.25vw;
+				font-family: titling-gothic-fb-wide, sans-serif;
+				position: relative;	
+				position:absolute;
+				color:#fff;
+				left:10px;
+				top:10px;
+				width:300px;
+				height:60px;
+			}
+
+
+			.info {
+				padding: 0;
+				margin: 0;
+				background: none;
+				border: 0;
+				cursor: pointer;
+				font-size: .75vw;
+				font-family: titling-gothic-fb-narrow, sans-serif;
+				position: relative;	
+				position:absolute;
+				color:#fff;
+				left:190px;
+				top:18px;
+				width:300px;
+				height:60px;
+			}	
+		</style>
+</head>
+<body>
+	<div class="title">Fluidmetal</div>
+	<div class="subtitle">WebGL SDF</div>
+	<div class="info">Done with webgl2</div>
+	<script type="module">
+		import * as THREE from './libs/build/three.module.js';
+
+		const clock = new THREE.Clock();
+		const matCap = './matcap2.png';
+
+		const settings = {
+      		progress: 0,
+      		particleNumber: 5,
+    	};
+
+		let camera, scene, renderer;
+		let geometry, mesh, material;
+		
+		let time = 0;
+		let imageAspect = -1;
+		let width, height, mouse;
+
+		const initObject = () => {
+			imageAspect = 1;
+			width = window.innerWidth;
+			height = window.innnerHeight;
+		    const resolution = 1;
+
+		    geometry = new THREE.PlaneBufferGeometry(1, 1, resolution, resolution);
+		    material = new THREE.ShaderMaterial({
+		      extensions: {
+		        derivatives: "#extension GL_OES_standard_derivatives : enable",
+		      },
+		      side: THREE.DoubleSide,
+		      vertexShader: `
+				varying vec3 pos;
+				uniform float time;
+
+				varying float v_noise;
+				varying vec2 vUv;
+
+				void main(){
+				    pos=position;
+				    vUv=uv;
+				    vec3 newPosition=position;
+				    
+				    gl_Position=projectionMatrix*modelViewMatrix*vec4(newPosition,1.);
+				}
+				`,
+		      fragmentShader: `
+		      	varying vec3 pos;
+				varying vec2 vUv;
+				varying float v_noise;
+
+				uniform float time;
+				uniform sampler2D matCap;
+				uniform vec4 resolution;
+				uniform vec2 mouse;
+				uniform float progress;
+				uniform float particleNumber;
+
+				//const int particleNumber = 3;
+
+				#define PI 3.14159265359
+
+				mat4 rotationMatrix(vec3 axis,float angle){
+				    axis=normalize(axis);
+				    float s=sin(angle);
+				    float c=cos(angle);
+				    float oc=1.-c;
+				    
+				    return mat4(oc*axis.x*axis.x+c,oc*axis.x*axis.y-axis.z*s,oc*axis.z*axis.x+axis.y*s,0.,
+				        oc*axis.x*axis.y+axis.z*s,oc*axis.y*axis.y+c,oc*axis.y*axis.z-axis.x*s,0.,
+				        oc*axis.z*axis.x-axis.y*s,oc*axis.y*axis.z+axis.x*s,oc*axis.z*axis.z+c,0.,
+				    0.,0.,0.,1.);
+				}
+
+				vec3 rotate(vec3 v,vec3 axis,float angle){
+				    mat4 m=rotationMatrix(axis,angle);
+				    return(m*vec4(v,1.)).xyz;
+				}
+
+				vec3 rotate(vec3 p, vec4 q){
+				  return 2.0 * cross(q.xyz, p * q.w + cross(q.xyz, p)) + p;
+				}
+				vec3 rotateX(vec3 p, float angle){
+				    return rotate(p, vec4(sin(angle/2.0), 0.0, 0.0, cos(angle/2.0)));
+				}
+				vec3 rotateY(vec3 p, float angle){
+					return rotate(p, vec4(0.0, sin(angle/2.0), 0.0, cos(angle/2.0)));
+				}
+				vec3 rotateZ(vec3 p, float angle){
+					return rotate(p, vec4(0.0, 0.0, sin(angle), cos(angle)));
+				}
+
+				vec2 getmatcap(vec3 eye,vec3 normal){
+				    vec3 reflected=reflect(eye,normal);
+				    float m=2.8284271247461903*sqrt(reflected.z+1.);
+				    return reflected.xy/m+.5;
+				}
+
+				float plane( vec4 plane, vec3 raypos )
+				{
+
+				    float scale = max( 0.0, 1.0 -  length( raypos.xz) / 40.0 );
+				    
+				    float d = cos( time * 10.0 - distance( vec2( 0,0) , raypos.xz) * 0.5 ) * 2.0 + 
+				        	  cos( time * 10.0 - distance( vec2( 10.0,5.0) , raypos.xz) * 1.0 )  * 0.8 + 
+				         	  cos( time * 10.0 - distance( vec2( -10.0,-5.0) , raypos.xz) * 2.0 ) * 0.8;
+				    
+				    float disp = v_noise;//texture( iChannel1, raypos.xz * 0.01 ).r;
+				    
+				    return dot( raypos, plane.xyz ) - plane.w - d*scale;
+				}
+
+				// r = sphere's radius
+				// h = cutting's plane's position
+				// t = thickness
+				float sdCutHollowSphere( vec3 p, float r, float h, float t )
+				{
+				    vec2 q = vec2( length(p.xz), p.y );
+				    
+				    float w = sqrt(r*r-h*h);
+				    
+				    return ((h*q.x<w*q.y) ? length(q-vec2(w,h)) : 
+				                            abs(length(q)-r) ) - t;
+				}
+
+				// r is the sphere's radius, h is the plane's position
+				float sdCutSphere( in vec3 p, in float r, in float h )
+				{
+				    float w = sqrt(r*r-h*h); // constant for a given shape
+				    
+				    vec2 q = vec2( length(p.xz), p.y );
+				    
+				    float s = max( (h-r)*q.x*q.x+w*w*(h+r-2.0*q.y), h*q.x-w*q.y );
+
+				    return (s<0.0) ? length(q)-r :
+				           (q.x<w) ? h - q.y     :
+				                     length(q-vec2(w,h));
+				}
+
+
+				float sdSphere(vec3 p,float s)
+				{
+				    return length(p)-s;
+				}
+
+				float sdBox(vec3 p,vec3 b)
+				{
+				    vec3 q=abs(p)-b;
+				    return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.);
+				}
+
+				float sdRoundCone( vec3 p, float r1, float r2, float h ){
+				  vec2 q = vec2( length(p.xz), p.y );
+				    
+				  float b = (r1-r2)/h;
+				  float a = sqrt(1.0-b*b);
+				  float k = dot(q,vec2(-b,a));
+				    
+				  if( k < 0.0 ) return length(q) - r1;
+				  if( k > a*h ) return length(q-vec2(0.0,h)) - r2;
+				        
+				  return dot(q, vec2(a,b) ) - r1;
+				}
+				float opSmoothSubtraction( float d1, float d2, float k )
+				{
+				    float h = max(k-abs(-d1-d2),0.0);
+				    return max(-d1, d2) + h*h*0.25/k;
+					//float h = clamp( 0.5 - 0.5*(d2+d1)/k, 0.0, 1.0 );
+					//return mix( d2, -d1, h ) + k*h*(1.0-h);
+				}
+
+
+				float opSmoothIntersection( float d1, float d2, float k )
+				{
+				    float h = max(k-abs(d1-d2),0.0);
+				    return max(d1, d2) + h*h*0.25/k;
+					//float h = clamp( 0.5 - 0.5*(d2-d1)/k, 0.0, 1.0 );
+					//return mix( d2, d1, h ) + k*h*(1.0-h);
+				}
+
+
+				// https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+				float smoothUnion(float d1, float d2, float k) 
+				{
+				    float h = clamp(0.5 + 0.5 * (d2-d1) / k, 0.0, 1.0);
+				    return mix(d2, d1, h) - k * h * (1.0  -h); 
+				}
+
+				float smin(float a,float b,float k){
+				    float h=clamp(.5+.5*(b-a)/k,0.,1.);
+				    return mix(b,a,h)-k*h*(1.-h);
+				}
+				float smax(float a, float b)
+				{
+				    float pw = 14.;
+				    float res = exp2(pw*a) + exp2(pw*b);
+				    return log2(res)/pw;
+				}
+
+
+
+				float displacement(vec3 p){
+				    return sin(p.x)*sin(p.y)*sin(p.z);
+				}
+
+				float opDisplace(vec3 p){
+				    vec3 offset = 0.15*time * normalize(vec3(.03, -.025, .051));
+				    return displacement(5.0*(p+offset));
+				}
+
+				float rand(vec2 co){
+				    return fract(sin(dot(co,vec2(12.9898,78.233)))*43758.5453);
+				}
+
+				vec2 sdf(vec3 p){
+					
+					vec3 p1 = rotate(p,vec3(0.1,.5,.7),time/5.);
+					float height = clamp(sin(time * .3), -.55,  .55);
+
+					vec2 h, t = vec2(sdCutHollowSphere(p1, .55, height, .01), 5.0);
+
+					float strength = mix(0.04, 1., smoothstep(-0.3, -.9, height));
+
+					float disp = opDisplace(p1 * .5) * strength;	
+					h = vec2(sdSphere(p, .35) - disp, 4.);
+
+					t.x = min(h.x, t.x);
+					
+					t.x = min(t.x, h.x);
+					t = t.x < h.x ? t : h;
+
+					for(int i=0;i<int(particleNumber);i++){
+				        float randOffset=rand(vec2(i,0.));
+				        float progr=fract(time/2.+randOffset*5.);
+				        vec3 rPos=vec3(sin(randOffset*2.*PI)*2.,cos(randOffset*2.*PI)*2.,0.);
+				        vec2 gotoCenter=vec2(sdSphere(p1-rPos*progr,.12), 4.0);
+				        t.x = smin(t.x, gotoCenter.x,.3);
+				    }
+
+				    t.x = min(t.x, h.x);
+					t = t.x < h.x ? t : h;
+
+					return t;
+				}
+
+				vec3 calcNormal(in vec3 p)// for function sdf(p)
+				{
+				    const float eps=.0001;// or some other value
+				    const vec2 h=vec2(eps,0);
+				    return normalize
+				    (
+				        vec3(
+				            sdf(p+h.xyy).x-sdf(p-h.xyy).x ,
+				            sdf(p+h.yxy).x-sdf(p-h.yxy).x,
+				            sdf(p+h.yyx).x-sdf(p-h.yyx).x
+				        )
+				    );
+				}
+
+				vec2 march( in vec3 ro, in vec3 rd, in float _max, in int iter ){ 
+					//main trace  / raycast / raymarching loop function 
+					vec2 h,t = vec2(.1); //0.1 is near plane
+				  	
+				  	for(int i=0;i<iter;i++){ //march for iter amount of iterations
+				    	vec3 pos = ro + t.x * rd;
+				    	h=sdf(pos); //get distance to geom
+				    	if(h.x<.00001||t.x>_max) break; //conditional break we hit something or gone too far
+				    	t.x += h.x;
+				    	t.y = h.y; //huge step forward and remember material id
+				  	}
+				  
+				  	if(t.x>_max) 
+				  		t.y=0.;//if we hit far plane return material id = 0, we will use it later to check if we hit something
+				  
+				  	return t;
+				}
+
+
+ 
+				    
+				void main(){
+				    float dist=length(vUv-vec2(.5));
+				    vec3 bg=vec3(mix(vec3(.1),vec3(0.),dist));
+				    vec2 newUv=(vUv-vec2(.5))*resolution.zw+vec2(.5);
+				    vec3 cameraPos=vec3(0.,0.,4.);
+				    vec3 ray=normalize(vec3((vUv-vec2(.5))*resolution.zw,-1.));
+				    
+				    vec3 rayPos=cameraPos;
+				    
+				    vec2 z = march(rayPos, ray, 50., 128);
+
+    				float t = z.x;
+
+				    vec4 color = vec4(bg,1.);
+
+				    if(z.y > 0.){
+				        vec3 pos=cameraPos+t*ray;
+				        vec3 normal=calcNormal(pos);
+				        float diff=dot(vec3(1.),normal);
+				        vec2 matCapUv=getmatcap(ray,normal);
+				        color=texture2D(matCap,matCapUv);
+				        if(z.y>4.0)
+				        	color.rgb += vec3(-.8, -.3, .5);
+
+				        float fresnel=pow(1.+dot(ray,normal),3.);
+				        color=mix(color,vec4(bg,.5),fresnel);
+				    }
+				    
+				    gl_FragColor=vec4(color);
+				}
+		      `,
+		      //   wireframe: true,
+		      transparent: true,
+		      uniforms: {
+		        time: { value: time },
+		        mouse: { value: new THREE.Vector2(0, 0) },
+		        progress: { value: 0.0 },
+		        matCap: {
+		          value: new THREE.TextureLoader().load(matCap),
+		        },
+		        resolution: { value: new THREE.Vector4() },
+		        particleNumber: { value: 2 },
+		      },
+		    });
+
+		    mesh = new THREE.Mesh(geometry, material);
+
+		    scene.add(mesh);
+
+		    resize();
+		};
+
+		const mouseEvents = () => {
+		    mouse = new THREE.Vector2();
+		    document.addEventListener("mousemove", (e) => {
+		      mouse.x = e.pageX / width - 0.5;
+		      mouse.y = -e.pageY / height + 0.5;
+		    });
+		};
+
+		const init = () => {
+			const fumSize = 1;
+		    // const aspect = window.innerWidth / window.innerHeight;
+
+		   camera = new THREE.OrthographicCamera(
+		      fumSize / -2,
+		      fumSize / 2,
+		      fumSize / 2,
+		      fumSize / -2,
+		      -1000,
+		      1000
+		    );
+
+		    camera.position.z = 1;
+		    scene = new THREE.Scene();
+
+			renderer = new THREE.WebGLRenderer({alpha:false});
+			renderer.setPixelRatio(window.devicePixelRatio);
+    		//renderer.toneMapping = THREE.ReinhardToneMapping;
+    		//renderer.toneMapping = THREE.ACESFilmicToneMapping;
+			//renderer.outputEncoding = THREE.sRGBEncoding;
+    		renderer.shadowMap.enabled = true;
+			document.body.appendChild(renderer.domElement);
+			renderer.setClearColor ( new THREE.Color(0,0,0), 1.0 ) 
+			renderer.setSize(innerWidth, innerHeight);
+
+			scene.add(new THREE.AmbientLight(0x883333));
+
+			initObject();
+			mouseEvents();
+
+			window.addEventListener("resize", resize);
+
+			update();
+		};
+
+		const resize = () => {
+		    width = document.body.offsetWidth;
+		    height = document.body.offsetHeight;
+		    renderer.setSize(width, height);
+		    camera.aspect = width / height;
+		    camera.updateProjectionMatrix();
+
+		    //images
+		    imageAspect = 1;
+		    let a1, a2;
+		    if (width / height > imageAspect) {
+		      a1 = (width / height) * imageAspect;
+		      a2 = 1;
+		    } else {
+		      a1 = 1;
+		      a2 = (width / height) * imageAspect;
+		    }
+
+		    material.uniforms.resolution.value.x = width;
+		    material.uniforms.resolution.value.y = height;
+		    material.uniforms.resolution.value.z = a1;
+		    material.uniforms.resolution.value.w = a2;
+		};
+
+		const update = () => {
+			requestAnimationFrame(update);
+
+			time += 0.05;
+
+    		material.uniforms.time.value = time;
+    		material.uniforms.progress.value = settings.progress;
+    		material.uniforms.particleNumber.value = settings.particleNumber;
+
+		    if (mouse) {
+		      	material.uniforms.mouse.value = mouse;
+		    }
+
+			renderer.render(scene, camera);
+		};
+
+		init();
+
+	</script>
+</body>
+</html>
